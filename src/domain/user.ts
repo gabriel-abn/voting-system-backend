@@ -4,7 +4,6 @@ export type UserProps = {
   name: string;
   email: string;
   password: string;
-  type: number;
   rememberToken: string;
   createdAt: Date;
   updatedAt: Date;
@@ -17,5 +16,9 @@ export class User extends Entity<UserProps> {
 
   static create(props: UserProps, id: number): User {
     return new User(props, id);
+  }
+
+  public passwordMatches(password: string): boolean {
+    return this.props.password === password;
   }
 }
