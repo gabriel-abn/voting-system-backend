@@ -1,7 +1,6 @@
 import { Entity } from "./common/entity";
 
 export type VotoProps = {
-  id: number;
   userId: number;
   temaId: number;
   opcao: number;

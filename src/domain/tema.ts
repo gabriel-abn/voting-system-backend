@@ -1,7 +1,7 @@
 import { Entity } from "./common/entity";
 
 export type TemaProps = {
-  id: number;
+  nome: string;
   descricao: string;
   ordem: number;
 };
