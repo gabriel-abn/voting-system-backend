@@ -16,7 +16,10 @@ export namespace CreateTema {
 }
 
 export class CreateTemaUseCase {
-  constructor(private readonly temaRepository: ITemaRepository, private readonly uuidService: IUUIDService) {}
+  constructor(
+    private readonly temaRepository: ITemaRepository,
+    private readonly uuidService: IUUIDService
+  ) {}
 
   async execute(params: CreateTema.Params): Promise<CreateTema.Result> {
     const exists = await this.temaRepository.findByName(params.nome);
@@ -39,7 +42,7 @@ export class CreateTemaUseCase {
 
     return {
       id,
-      nome: newTema.nome,
+      nome: newTema.props.nome,
     };
   }
 }
