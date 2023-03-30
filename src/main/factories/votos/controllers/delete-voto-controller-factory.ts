@@ -1,6 +1,7 @@
-import { DeleteVotoUseCase } from "@application/use-cases/votos";
-import { VotoRepository } from "@infra/database/repositories";
+import { Controller } from "@presentation/common";
+import { DeleteVotoController } from "@presentation/controllers/votos";
+import { makeDeleteVotoUseCase } from "../use-cases";
 
-export const makeDeleteVotoUseCase = (): DeleteVotoUseCase => {
-  return new DeleteVotoUseCase(new VotoRepository());
+export const makeDeleteVotoController = (): Controller => {
+  return new DeleteVotoController(makeDeleteVotoUseCase());
 };
