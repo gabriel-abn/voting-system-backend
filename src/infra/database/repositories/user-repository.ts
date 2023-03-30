@@ -47,19 +47,23 @@ export class UserRepository implements IUserRepository {
         },
       })
       .then((user) => {
-        return {
-          props: {
+        if (user) {
+          return {
+            props: {
+              id: user.id,
+              email: user.email,
+              password: user.password,
+              name: user.name,
+              type: user.type,
+              rememberToken: user.remember_token,
+              createdAt: user.createdAt,
+              updatedAt: user.updatedAt,
+            },
             id: user.id,
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            type: user.type,
-            rememberToken: user.remember_token,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
-          },
-          id: user.id,
-        };
+          };
+        }
+
+        return null;
       })
       .catch((err) => {
         throw new RepositoryError(err);
@@ -75,19 +79,23 @@ export class UserRepository implements IUserRepository {
         },
       })
       .then((user) => {
-        return {
-          props: {
+        if (user) {
+          return {
+            props: {
+              id: user.id,
+              email: user.email,
+              password: user.password,
+              name: user.name,
+              type: user.type,
+              rememberToken: user.remember_token,
+              createdAt: user.createdAt,
+              updatedAt: user.updatedAt,
+            },
             id: user.id,
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            type: user.type,
-            rememberToken: user.remember_token,
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt,
-          },
-          id: user.id,
-        };
+          };
+        }
+
+        return null;
       })
       .catch((err) => {
         throw new RepositoryError(err);
