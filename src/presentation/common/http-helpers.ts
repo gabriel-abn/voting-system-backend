@@ -1,14 +1,14 @@
 import { UnauthorizedError } from "@presentation/errors";
 import { HttpResponse } from "./http";
 
-export const badRequest = (error: Error): HttpResponse => ({
+export const badRequest = (error: any): HttpResponse => ({
   status: 400,
-  body: error,
+  body: error.toString(),
 });
 
-export const serverError = (error: Error): HttpResponse => ({
+export const serverError = (error: any): HttpResponse => ({
   status: 500,
-  body: error,
+  body: error.toString(),
 });
 
 export const unauthorized = (): HttpResponse => ({
@@ -21,12 +21,12 @@ export const ok = (data: any): HttpResponse => ({
   body: data,
 });
 
-export const forbidden = (error: Error): HttpResponse => ({
+export const forbidden = (error: any): HttpResponse => ({
   status: 403,
-  body: error,
+  body: error.toString(),
 });
 
-export const notFound = (error: Error): HttpResponse => ({
+export const notFound = (error: any): HttpResponse => ({
   status: 404,
-  body: error,
+  body: error.toString(),
 });
