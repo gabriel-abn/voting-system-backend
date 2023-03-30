@@ -24,6 +24,8 @@ export class GetTemaByIdController implements Controller {
         return badRequest(error);
       }
 
+      request.id = Number(request.id);
+
       const tema = await this.getTemaByIdUseCase.execute(request);
 
       return ok(tema);

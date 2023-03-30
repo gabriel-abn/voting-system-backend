@@ -7,6 +7,7 @@ export class DeleteTemaController implements Controller {
 
   async handle(request: DeleteTema.Params): Promise<HttpResponse> {
     try {
+      request.id = Number(request.id);
       const response = await this.deleteTema.execute(request);
 
       return ok(response);

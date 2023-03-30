@@ -24,7 +24,14 @@ export class EditTemaController implements Controller {
         return badRequest(error);
       }
 
-      const tema = await this.editTema.execute(request);
+      request.id = Number(request.id);
+
+      const tema = await this.editTema.execute({
+        id: request.id,
+        nome: request.nome,
+        descricao: request.descricao,
+        ordem: request.ordem,
+      });
 
       return ok(tema);
     } catch (error) {
