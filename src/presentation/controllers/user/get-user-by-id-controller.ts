@@ -27,6 +27,8 @@ export class GetUserByIdController implements Controller {
         return badRequest(error);
       }
 
+      request.id = Number(request.id);
+
       const user = await this.getUserById.execute(request);
 
       return ok(user);

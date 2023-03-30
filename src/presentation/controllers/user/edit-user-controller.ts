@@ -24,8 +24,9 @@ export class EditUserController implements Controller {
         return badRequest(error);
       }
 
-      const { id, name, email, password } = request;
-      const user = await this.editUser.execute({ id, name, email, password });
+      request.id = Number(request.id);
+
+      const user = await this.editUser.execute(request);
 
       return ok(user);
     } catch (error) {

@@ -7,6 +7,7 @@ export class DeleteUserController implements Controller {
 
   async handle(request: DeleteUser.Params): Promise<HttpResponse> {
     try {
+      request.id = Number(request.id);
       const response = await this.deleteUser.execute(request);
 
       return ok(response);

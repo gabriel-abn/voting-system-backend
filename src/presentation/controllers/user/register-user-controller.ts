@@ -27,8 +27,8 @@ export class RegisterUserController implements Controller {
         return badRequest(error);
       }
 
-      const { name, email, password } = request;
-      const user = await this.registerUser.execute({ name, email, password });
+      const { nome: name, email, senha: password } = request;
+      const user = await this.registerUser.execute({ nome: name, email, senha: password });
 
       return ok(user);
     } catch (error) {
