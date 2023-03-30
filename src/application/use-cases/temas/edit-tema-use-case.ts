@@ -5,9 +5,9 @@ import { Tema, TemaProps } from "@domain/tema";
 export namespace EditTema {
   export type Params = {
     id: number;
-    name: string;
-    description: string;
-    order: number;
+    nome: string;
+    descricao: string;
+    ordem: number;
   };
   export type Result = TemaProps;
 }
@@ -22,9 +22,9 @@ export class EditTemaUseCase {
 
     const tema = Tema.create(
       {
-        nome: params.name,
-        descricao: params.description,
-        ordem: params.order,
+        nome: params.nome,
+        descricao: params.descricao,
+        ordem: params.ordem,
       },
       exists.id
     );
