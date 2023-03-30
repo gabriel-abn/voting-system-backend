@@ -7,5 +7,6 @@ export namespace Auth {
 }
 
 export interface IAuthService {
+  generateToken(email: string, password: string): Promise<string>;
   auth(params: Auth.Params): Promise<Auth.Result>;
 }
