@@ -1,0 +1,9 @@
+{
+  "execMap": {
+    "ts": "ts-node"
+  },
+  "events": {
+    "restart": "clear"
+  },
+  "verbose": true
+}
