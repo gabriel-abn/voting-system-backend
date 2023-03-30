@@ -7,6 +7,7 @@ export class DeleteVotoController implements Controller {
 
   async handle(request: DeleteVoto.Params): Promise<HttpResponse> {
     try {
+      request.id = Number(request.id);
       const response = await this.deleteVoto.execute(request);
 
       return ok(response);

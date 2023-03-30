@@ -17,6 +17,8 @@ export class EditVotoController implements Controller {
         return badRequest(params);
       }
 
+      request.id = Number(request.id);
+
       const voto = await this.editVoto.execute(request);
 
       return ok(voto);

@@ -7,6 +7,8 @@ export class GetVotoByIdController implements Controller {
 
   async handle(request: GetVotoById.Params): Promise<HttpResponse> {
     try {
+      request.id = Number(request.id);
+
       const voto = await this.getVotoById.execute(request);
 
       return ok(voto);
