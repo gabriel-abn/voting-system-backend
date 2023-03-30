@@ -12,15 +12,13 @@ export class DeleteVotoUseCase {
   constructor(private readonly votosRepository: IVotoRepository) {}
 
   async execute(params: DeleteVoto.Params): Promise<DeleteVoto.Result> {
-    const { id } = params;
-
-    const voto = await this.votosRepository.findById(id);
+    const voto = await this.votosRepository.findById(params.id);
 
     if (!voto) {
       throw new ApplicationError("Voto não encontrado");
     }
 
-    const deleted = await this.votosRepository.delete(id);
+    const deleted = await this.votosRepository.delete(params.id);
     return deleted;
   }
 }

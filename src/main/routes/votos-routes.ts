@@ -1,7 +1,7 @@
 import { adaptRoute } from "@infra/http";
-import { makeDeleteUserController } from "@main/factories/users/controllers";
 import {
   makeCreateVotoController,
+  makeDeleteVotoController,
   makeEditVotoController,
   makeGetAllVotosController,
   makeGetVotoByIdController,
@@ -18,4 +18,4 @@ votosRoutes.get("/:id", adaptRoute(makeGetVotoByIdController()));
 
 votosRoutes.put("/:id", adaptRoute(makeEditVotoController()));
 
-votosRoutes.delete("/:id", adaptRoute(makeDeleteUserController()));
+votosRoutes.delete("/:id", adaptRoute(makeDeleteVotoController()));
