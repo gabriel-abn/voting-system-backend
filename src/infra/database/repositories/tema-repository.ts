@@ -38,14 +38,18 @@ export class TemaRepository implements ITemaRepository {
     const result = await this.db.temas
       .findUnique({ where: { id } })
       .then((tema) => {
-        return {
-          props: {
-            nome: tema.nome,
-            descricao: tema.descricao,
-            ordem: tema.ordem,
-          },
-          id: tema.id,
-        };
+        if (tema) {
+          return {
+            props: {
+              nome: tema.nome,
+              descricao: tema.descricao,
+              ordem: tema.ordem,
+            },
+            id: tema.id,
+          };
+        }
+
+        return null;
       })
       .catch((error) => {
         throw new RepositoryError(error);
@@ -55,16 +59,22 @@ export class TemaRepository implements ITemaRepository {
   }
   async findByName(name: string): Promise<{ props: TemaProps; id: number }> {
     const result = await this.db.temas
-      .findFirst({ where: { nome: name } })
+      .findFirst({
+        where: { nome: name },
+      })
       .then((tema) => {
-        return {
-          props: {
-            nome: tema.nome,
-            descricao: tema.descricao,
-            ordem: tema.ordem,
-          },
-          id: tema.id,
-        };
+        if (tema) {
+          return {
+            props: {
+              nome: tema.nome,
+              descricao: tema.descricao,
+              ordem: tema.ordem,
+            },
+            id: tema.id,
+          };
+        }
+
+        return null;
       })
       .catch((error) => {
         throw new RepositoryError(error);
