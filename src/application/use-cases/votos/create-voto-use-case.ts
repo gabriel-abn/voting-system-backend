@@ -1,5 +1,9 @@
 import { ApplicationError } from "@application/common";
-import { IUserRepository, IVotoRepository } from "@application/protocols/repostiories";
+import {
+  ITemaRepository,
+  IUserRepository,
+  IVotoRepository,
+} from "@application/protocols/repostiories";
 import { IUUIDService } from "@application/protocols/services";
 import { Voto } from "@domain/votos";
 
@@ -9,13 +13,18 @@ export namespace CreateVoto {
     emailUsuario: string;
     opcao: number;
   };
-  export type Result = boolean;
+  export type Result = {
+    id: number;
+    nomeUsuario: string;
+    nomeTema: string;
+  };
 }
 
 export class CreateVotoUseCase {
   constructor(
     private readonly repository: IVotoRepository,
     private readonly userRepository: IUserRepository,
+    private readonly temaRepository: ITemaRepository,
     private readonly idGenerator: IUUIDService
   ) {}
 
@@ -28,6 +37,12 @@ export class CreateVotoUseCase {
       throw new ApplicationError("Usuário já votou neste tema");
     }
 
+    const tema = await this.temaRepository.findById(params.idTema);
+
+    if (!tema) {
+      throw new ApplicationError("Tema não encontrado");
+    }
+
     const idVoto = this.idGenerator.generate();
 
     const voto = Voto.create(
@@ -35,6 +50,12 @@ export class CreateVotoUseCase {
       idVoto
     );
 
-    return await this.repository.create(voto);
+    const result = await this.repository.create(voto);
+
+    return {
+      id: result.id,
+      nomeUsuario: user.props.name,
+      nomeTema: tema.props.nome,
+    };
   }
 }

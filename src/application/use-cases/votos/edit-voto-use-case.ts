@@ -1,5 +1,5 @@
 import { ApplicationError } from "@application/common";
-import { IVotoRepository } from "@application/protocols/repostiories";
+import { ITemaRepository, IVotoRepository } from "@application/protocols/repostiories";
 import { VotoProps } from "@domain/votos";
 
 export namespace EditVoto {
@@ -11,7 +11,10 @@ export namespace EditVoto {
 }
 
 export class EditVotoUseCase {
-  constructor(private readonly votosRepository: IVotoRepository) {}
+  constructor(
+    private readonly votosRepository: IVotoRepository,
+    private readonly temaRepository: ITemaRepository
+  ) {}
 
   async execute(params: EditVoto.Params): Promise<EditVoto.Result> {
     const { id, voto } = params;
@@ -20,6 +23,12 @@ export class EditVotoUseCase {
 
     if (!exist) {
       throw new ApplicationError("Voto não encontrado");
+    }
+
+    const tema = await this.temaRepository.findById(voto.temaId);
+
+    if (!tema) {
+      throw new ApplicationError("Tema não encontrado");
     }
 
     const votoUpdated = await this.votosRepository.update(id, voto);
