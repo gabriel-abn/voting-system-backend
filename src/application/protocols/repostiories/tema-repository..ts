@@ -5,4 +5,6 @@ export interface ITemaRepository {
   findById(id: number): Promise<{ props: TemaProps; id: number }>;
   findByName(name: string): Promise<{ props: TemaProps; id: number }>;
   update(tema: Tema): Promise<TemaProps>;
+  delete(id: number): Promise<boolean>;
+  getAll(): Promise<TemaProps[]>;
 }
