@@ -6,7 +6,7 @@ import { prismaService } from "../prisma/prisma-service";
 
 export class VotoRepository implements IVotoRepository {
   constructor(private db: PrismaClient = prismaService) {}
-  async create(voto: Voto): Promise<VotoProps> {
+  async create(voto: Voto): Promise<{ props: VotoProps; id: number }> {
     const [props, id] = voto.getProps();
 
     const result = await this.db.votos
@@ -34,7 +34,7 @@ export class VotoRepository implements IVotoRepository {
         throw new RepositoryError(error);
       });
 
-    return result.props;
+    return result;
   }
   async findByTemaAndUsuario(
     idTema: number,
@@ -48,15 +48,17 @@ export class VotoRepository implements IVotoRepository {
         },
       })
       .then((voto) => {
-        return {
-          props: {
-            temaId: voto.tema_id,
-            userId: voto.user_id,
-            opcao: voto.opcao,
-            data: voto.createdAt,
-          },
-          id: voto.id,
-        };
+        if (voto) {
+          return {
+            props: {
+              temaId: voto.tema_id,
+              userId: voto.user_id,
+              opcao: voto.opcao,
+              data: voto.createdAt,
+            },
+            id: voto.id,
+          };
+        }
       })
       .catch((error) => {
         throw new RepositoryError(error);
@@ -68,12 +70,14 @@ export class VotoRepository implements IVotoRepository {
     const result = await this.db.votos
       .findUnique({ where: { id } })
       .then((voto) => {
-        return {
-          temaId: voto.tema_id,
-          userId: voto.user_id,
-          opcao: voto.opcao,
-          data: voto.createdAt,
-        };
+        if (voto) {
+          return {
+            temaId: voto.tema_id,
+            userId: voto.user_id,
+            opcao: voto.opcao,
+            data: voto.createdAt,
+          };
+        }
       })
       .catch((error) => {
         throw new RepositoryError(error);
