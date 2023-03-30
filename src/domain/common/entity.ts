@@ -7,7 +7,7 @@ export abstract class Entity<T> {
     this.id = id;
   }
 
-  public getProps(): T {
-    return this.props;
+  public getProps(): [T, number] {
+    return [this.props, this.id];
   }
 }
