@@ -5,13 +5,13 @@ import { User } from "@domain/user";
 
 export namespace RegisterUser {
   export interface Params {
-    name: string;
+    nome: string;
     email: string;
-    password: string;
+    senha: string;
   }
   export interface Result {
     id: number;
-    name: string;
+    nome: string;
     email: string;
   }
 }
@@ -25,16 +25,17 @@ export class RegisterUserUseCase {
 
   async execute(params: RegisterUser.Params): Promise<RegisterUser.Result> {
     const exists = await this.userRepository.findByEmail(params.email);
-    if (exists) {
+
+    if (exists.id) {
       throw new ApplicationError("User already exists");
     }
 
-    const hashedPassword = await this.passwordService.hash(params.password);
+    const hashedPassword = await this.passwordService.hash(params.senha);
     const id = this.uuidService.generate();
 
     const user = User.create(
       {
-        name: params.name,
+        name: params.nome,
         email: params.email,
         password: hashedPassword,
         createdAt: new Date(),
@@ -48,7 +49,7 @@ export class RegisterUserUseCase {
 
     return {
       id,
-      name: newUser.name,
+      nome: newUser.name,
       email: newUser.email,
     };
   }

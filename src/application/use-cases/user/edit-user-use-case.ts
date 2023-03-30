@@ -5,9 +5,9 @@ import { User, UserProps } from "@domain/user";
 export namespace EditUser {
   export type Params = {
     id: number;
-    name: string;
+    nome: string;
     email: string;
-    password: string;
+    senha: string;
   };
   export type Result = UserProps;
 }
@@ -23,8 +23,8 @@ export class EditUserUseCase {
     const user = User.create(
       {
         email: params.email,
-        name: params.name,
-        password: params.password,
+        name: params.nome,
+        password: params.senha,
         updatedAt: new Date(),
         createdAt: exists.props.createdAt,
         rememberToken: exists.props.rememberToken,
