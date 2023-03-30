@@ -1,6 +1,6 @@
 import { EditVotoUseCase } from "@application/use-cases/votos";
-import { VotoRepository } from "@infra/database/repositories";
+import { TemaRepository, VotoRepository } from "@infra/database/repositories";
 
 export const makeEditVotoUseCase = (): EditVotoUseCase => {
-  return new EditVotoUseCase(new VotoRepository());
+  return new EditVotoUseCase(new VotoRepository(), new TemaRepository());
 };
