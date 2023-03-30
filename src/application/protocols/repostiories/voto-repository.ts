@@ -1,7 +1,7 @@
 import { Voto, VotoProps } from "@domain/votos";
 
 export interface IVotoRepository {
-  create(voto: Voto): Promise<boolean>;
+  create(voto: Voto): Promise<VotoProps>;
   findByTemaAndUsuario(
     idTema: number,
     idUsuario: number
