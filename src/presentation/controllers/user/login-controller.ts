@@ -5,6 +5,7 @@ import {
   HttpResponse,
   badRequest,
   notFound,
+  ok,
   serverError,
   unauthorized,
 } from "@presentation/common";
@@ -31,10 +32,7 @@ export class LoginController implements Controller {
         return unauthorized();
       }
 
-      return {
-        status: 200,
-        body: accessToken,
-      };
+      return ok({ accessToken });
     } catch (error) {
       if (error instanceof ApplicationError) {
         return notFound(error);
